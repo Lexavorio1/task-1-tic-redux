@@ -1,13 +1,18 @@
-import { connect } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
+import { setCurrentPlayer } from '../../actions'
 import styles from './Field.module.css'
 
-const FieldComponent = ({ cells, makeMove, isGameEnded, isDraw }) => {
+const FieldComponent = ({ cells, isGameEnded, isDraw }) => {
+  const dispatch = useDispatch()
+  const onCurrentPlayer = (index) => {
+    dispatch(setCurrentPlayer(index))
+  }
   return (
     <div className={styles.btns}>
       {cells.map((cell, index) => (
         <button
           key={index}
-          onClick={() => makeMove(index)}
+          onClick={() => onCurrentPlayer(index)}
           className={`${styles.btn} ${cell ? styles[`btn-${cell}`] : ''}`}
           disabled={cell || isGameEnded || isDraw}
         >
@@ -24,8 +29,4 @@ const mapStateToProps = (state) => ({
   isDraw: state.isDraw
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  makeMove: (index) => dispatch({ type: 'SET_CURRENT_PLAYER', payload: index })
-})
-
-export const Field = connect(mapStateToProps, mapDispatchToProps)(FieldComponent);
+export const Field = connect(mapStateToProps)(FieldComponent);

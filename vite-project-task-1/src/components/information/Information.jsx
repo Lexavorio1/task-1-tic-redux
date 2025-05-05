@@ -1,6 +1,8 @@
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
+import { selectInfo } from '../../selectors'
 
-const InfoComponent = ({ currentPlayer, isGameEnded, isDraw }) => {
+const InfoComponent = ({ isGameEnded, isDraw }) => {
+  const currentPlayer = useSelector(selectInfo)
   if (isGameEnded) return <div>Победитель: {currentPlayer}</div>
   if (isDraw) return <div>Ничья!</div>;
   return <div>Текущий ход: {currentPlayer}</div>

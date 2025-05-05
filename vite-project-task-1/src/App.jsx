@@ -1,4 +1,3 @@
-import { Provider } from 'react-redux'
 import { Field } from './components/field'
 import { Info } from './components/information'
 import { store } from './store'
@@ -10,12 +9,12 @@ export const App = () => {
   }
 
   return (
-    <Provider store={store}>
+
       <div className={styles.game}>
         <Info />
         <button onClick={restart}>Начать заново</button>
         <Field />
       </div>
-    </Provider>
+
   )
 }

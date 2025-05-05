@@ -27,6 +27,7 @@ const checkDraw = (cells) => {
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
+/* 1 --- case был без {}
     case 'SET_CURRENT_PLAYER':
       if (state.cells[action.payload] || state.isGameEnded || state.isDraw) {
         return state
@@ -44,8 +45,28 @@ export const reducer = (state = initialState, action) => {
         currentPlayer: isGameEnded || isDraw ? state.currentPlayer : state.currentPlayer === 'X' ? 'O' : 'X',
         isGameEnded,
         isDraw
+      }*/
+     
+      //2 а стал в {}
+    case 'SET_CURRENT_PLAYER': {
+      if (state.cells[action.payload] || state.isGameEnded || state.isDraw) {
+        return state
       }
       
+      const newCells = [...state.cells]
+      newCells[action.payload] = state.currentPlayer
+      
+      const isGameEnded = checkIsGameEnded(newCells)
+      const isDraw = !isGameEnded && checkDraw(newCells)
+      
+      return {
+        ...state,
+        cells: newCells,
+        currentPlayer: isGameEnded || isDraw ? state.currentPlayer : state.currentPlayer === 'X' ? 'O' : 'X',
+        isGameEnded,
+        isDraw
+      }
+    }
     case 'RESTART_GAME':
       return initialState;
       

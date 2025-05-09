@@ -1,19 +1,24 @@
-import { useState } from "react"
+import { useState } from "react";
+import axios from "axios";
 
 export const useDelete = (setFlags) => {
-    const [isDelete, setIsDelete] = useState(false)
-    const onDelete = (id) => {
-        setIsDelete(true)
-        fetch(`http://localhost:2016/todos/${id}`, {
-            method: "DELETE",
-        })
-        .then((delResponse) => delResponse.json())
-        .then((delResponse)=>{
-            console.log('Дело удалено', delResponse)
-            setFlags()
-        })
-        .finally(()=>setIsDelete(false))
-    }
+    const [isDeleting, setIsDeleting] = useState(false);
+    
+    const onDelete = async (id) => {
+        setIsDeleting(true);
+        try {
+            await axios.delete(`http://localhost:2016/todos/${id}`);
+            console.log('Дело удалено');
+            setFlags();
+        } catch (error) {
+            console.error('Ошибка при удалении:', error);
+        } finally {
+            setIsDeleting(false);
+        }
+    };
 
-    return { isDelete, onDelete }
-}
+    return { 
+        isDeleting, 
+        onDelete 
+    };
+};

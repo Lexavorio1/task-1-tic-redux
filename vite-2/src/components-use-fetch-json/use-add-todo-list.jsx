@@ -1,25 +1,26 @@
-import { useState } from "react"
+import { useState } from "react";
+import axios from "axios";
 
 export const useAddTodoList = (setFlags) => {
-    const [isCreating, setIsCreating] = useState(false)
-    const onAdd = (title) => {
-        setIsCreating(true)
-        fetch('http://localhost:2016/todos', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json;charset=utf-8' },
-            body: JSON.stringify({
+    const [isCreating, setIsCreating] = useState(false);
+    
+    const onAdd = async (title) => {
+        setIsCreating(true);
+        try {
+            await axios.post('http://localhost:2016/todos', {
                 title: title,
-            }),
-        })
-        .then((response) => response.json())
-        .then(()=>setFlags())
-        .finally(()=>{
-            setIsCreating(false)
-        })
-    }
+                completed: false
+            });
+            setFlags();
+        } catch (error) {
+            console.error('Ошибка при добавлении:', error);
+        } finally {
+            setIsCreating(false);
+        }
+    };
 
     return {
         isCreating,
         onAdd,
-    }
-}
+    };
+};

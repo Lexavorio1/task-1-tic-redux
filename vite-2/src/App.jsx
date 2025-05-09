@@ -7,6 +7,7 @@ import {
     useAddTodoList,
     useGetTodoList
 } from './components-use-fetch-json'
+import { UseTwoBtns } from './control-panel'
 import styles from './App.module.css'
 
 export const App = () => {
@@ -22,8 +23,6 @@ export const App = () => {
     const [flagLoading, setFlagLoading] = useState(false)
     const setFlags = () => setFlagLoading(!flagLoading)
 
-    const { isDelete, onDelete } = useDelete(setFlags)
-    const { isUpdate, onUpdate } = useUpdate(setFlags)
     const { isCreating, onAdd } = useAddTodoList(setFlags)
     const { todoList, isLoading } = useGetTodoList(flagLoading)
     
@@ -85,16 +84,7 @@ export const App = () => {
                         <li className={styles.list} key={id}>
                             {title}
                             <div className={styles.btns}>
-                                <button onClick={() => { onUpdate(id, title) }}>
-                                Изменить
-                                </button>
-                                <button
-                                disabled={isDelete || isCreating || isUpdate}
-                                className={styles.delete}
-                                onClick={() => { onDelete(id) }}
-                                >
-                                    Удалить
-                                </button>
+                            <UseTwoBtns id={id} title={title} />
                             </div>
                         </li>
                     ))}

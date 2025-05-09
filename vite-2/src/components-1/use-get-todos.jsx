@@ -5,24 +5,21 @@ import { axiosTodosSuccess } from '../actions'
 
 export const useGetTodoList = (flagLoading) => {
 
-    const [todoList, setTodoList] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const dispatch = useDispatch()
     
       useEffect(()=>{
         setIsLoading(true)
         axios.get('http://localhost:2016/todos')
-              .then((loadedData)=> loadedData.data)
-              .then((loadedProducts)=>{
-                setTodoList(loadedProducts)
-                dispatch(axiosTodosSuccess(todoList))
+              .then((loadedData)=> {
+                dispatch(axiosTodosSuccess(loadedData.data))
               })
               .finally(()=>{
                 setIsLoading(false)
               })
-      }, [flagLoading])
+      }, [dispatch, flagLoading])
 
     
 
-      return { todoList, isLoading }
+      return { isLoading }
 }

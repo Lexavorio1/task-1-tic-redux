@@ -19,10 +19,9 @@ export const reducer = (state=initialState, action) => {
           todoList: state.todoList.filter(todo => todo.id !== action.payload)
         };
         case 'GET_TODOS': {
-          const newTodoList = [...state.todoList]
           return {
             ...state,
-            todoList: newTodoList
+            todoList: action.payload
           }
         }
       default:

@@ -1,10 +1,11 @@
 import { useState } from 'react'
+import { useSelector } from "react-redux";
 import { debounce } from 'lodash'
 import {
     AddTodoListForm,
     useAddTodoList,
     useGetTodoList
-} from './components-use-fetch-json'
+} from './components-1'
 import { UseTwoBtns } from './control-panel'
 import styles from './App.module.css'
 
@@ -19,11 +20,13 @@ export const App = () => {
       setSearchPhrase(value)
     }, 300)
 
+    const { todoList } = useSelector((state) => state.todoList);
+
     const [flagLoading, setFlagLoading] = useState(false)
     const setFlags = () => setFlagLoading(!flagLoading)
 
-    const { isCreating, onAdd } = useAddTodoList(setFlags)
-    const { todoList, isLoading } = useGetTodoList(flagLoading)
+    const { onAdd } = useAddTodoList(setFlags)
+    const { isLoading } = useGetTodoList(flagLoading)
     
     const [searchPhrase, setSearchPhrase] = useState('')
     const [isSorted, setIsSorted] = useState(false)
@@ -83,7 +86,7 @@ export const App = () => {
                         <li className={styles.list} key={id}>
                             {title}
                             <div className={styles.btns}>
-                            <UseTwoBtns id={todoList.id} title={todoList.title} />
+                            <UseTwoBtns id={id} title={title} />
                             </div>
                         </li>
                     ))}

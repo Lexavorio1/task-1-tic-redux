@@ -2,15 +2,16 @@ import { useDispatch } from "react-redux";
 import { updateTodo, deleteTodo } from "../actions";
 import styles from '../App.module.css'
 
-export const UseTwoBtns = (id, title) => {
+export const UseTwoBtns = ({ id, title }) => {
   const dispatch = useDispatch();
 
   const onDeleteButton = (id) => {
     dispatch(deleteTodo(id))
   };
 
-  const onUpdateButton = (id, title) => {
-    dispatch(updateTodo(id, title))
+  const onUpdateButton = (id) => {
+    const newTitle = prompt("Введите новый текст дела", title)
+    dispatch(updateTodo(id, newTitle))
   };
 
   return (

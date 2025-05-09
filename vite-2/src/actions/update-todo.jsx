@@ -1,4 +1,4 @@
-export const updateTodo = (data) => ({
+export const updateTodo = (id, newTitle) => ({
     type: 'UPDATE_TODO',
-    payload: data
+    payload: { id, newTitle }
 })

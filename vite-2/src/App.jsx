@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { debounce } from 'lodash'
 import {
-    useUpdate,
-    useDelete,
     AddTodoListForm,
     useAddTodoList,
     useGetTodoList
@@ -11,6 +9,7 @@ import { UseTwoBtns } from './control-panel'
 import styles from './App.module.css'
 
 export const App = () => {
+
     const [showForm, setShowForm] = useState(false)
     const toggleFormVisibility = () => {
         setShowForm(!showForm)
@@ -84,7 +83,7 @@ export const App = () => {
                         <li className={styles.list} key={id}>
                             {title}
                             <div className={styles.btns}>
-                            <UseTwoBtns id={id} title={title} />
+                            <UseTwoBtns id={todoList.id} title={todoList.title} />
                             </div>
                         </li>
                     ))}

@@ -1,24 +1,30 @@
 const initialState = {
-    todos: [],
-    currentTodo: null
-  };
-  
-  export const reducer = (state = initialState, action) => {
+  todoList: []
+}
+
+export const reducer = (state=initialState, action) => {
     switch (action.type) {
-      case 'ADD_TODO_SUCCESS':
-        return { ...state, todos: [...state.items, action.payload] };
-      case 'UPDATE_TODO_SUCCESS':
+      case 'ADD_TODO':
+        return { ...state, todoList: [...state.items, action.payload] };
+      case 'UPDATE_TODO':
         return {
           ...state,
-          todos: state.todos.map(todo =>
+          todoList: state.todoList.map(todo =>
             todo.id === action.payload.id ? action.payload : todo
           )
         };
-      case 'DELETE_TODO_SUCCESS':
+      case 'DELETE_TODO':
         return {
           ...state,
-          todos: state.todos.filter(todo => todo.id !== action.payload)
+          todoList: state.todoList.filter(todo => todo.id !== action.payload)
         };
+        case 'GET_TODOS': {
+          const newTodoList = [...state.todoList]
+          return {
+            ...state,
+            todoList: newTodoList
+          }
+        }
       default:
         return state;
     }

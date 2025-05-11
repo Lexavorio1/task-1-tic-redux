@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { debounce } from 'lodash'
 import {
     AddTodoListForm,
-    UseAddTodoList,
+    useAddTodoList,
     fetchTodos,
 } from './components-1'
 import { UseTwoBtns } from './control-panel'
@@ -24,7 +24,7 @@ export const App = () => {
     const [flagLoading, setFlagLoading] = useState(false)
     const setFlags = () => setFlagLoading(!flagLoading)
 
-    const { onAdd } = UseAddTodoList(setFlags)
+    const { onAdd } = useAddTodoList(setFlags)
     const dispatch = useDispatch();
     const { todoList, isLoading } = useSelector((state) => state);
 

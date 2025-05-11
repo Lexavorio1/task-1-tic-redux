@@ -1,7 +1,7 @@
 import axios from "axios";
 import { updateTodo } from "../actions";
 
-export const UseUpdate = (id, newTitle) => {   
+export const useUpdate = (id, newTitle) => {   
     return async (dispatch) => {
             try {
                 await axios.put(`http://localhost:2016/todos/${id}`, {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-export const UseAddTodoList = (setFlags) => {
+export const useAddTodoList = (setFlags) => {
     const [isCreating, setIsCreating] = useState(false);
     
     const onAdd = async (title) => {

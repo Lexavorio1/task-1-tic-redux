@@ -1,24 +1,14 @@
-import { useState } from "react";
+import { deleteTodo } from "../actions";
 import axios from "axios";
 
-export const useDelete = (setFlags) => {
-    const [isDeleting, setIsDeleting] = useState(false);
-    
-    const onDelete = async (id) => {
-        setIsDeleting(true);
+export const UseDelete = (id) => {
+    return async (dispatch) => {
         try {
             await axios.delete(`http://localhost:2016/todos/${id}`);
-            console.log('Дело удалено');
-            setFlags();
         } catch (error) {
             console.error('Ошибка при удалении:', error);
         } finally {
-            setIsDeleting(false);
+            dispatch(deleteTodo(id))
         }
-    };
-
-    return { 
-        isDeleting, 
-        onDelete 
     };
 };

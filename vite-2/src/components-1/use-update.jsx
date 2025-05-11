@@ -1,29 +1,16 @@
-import { useState } from "react";
 import axios from "axios";
+import { updateTodo } from "../actions";
 
-export const useUpdate = (setFlags) => {
-    const [isUpdating, setIsUpdating] = useState(false);
-    
-    const onUpdate = async (id, title) => {
-        const newTitle = prompt("Введите новый текст дела", title);
-        
-        if (newTitle && newTitle.trim() !== "") {
-            setIsUpdating(true);
+export const UseUpdate = (id, newTitle) => {   
+    return async (dispatch) => {
             try {
                 await axios.put(`http://localhost:2016/todos/${id}`, {
                     title: newTitle
                 });
-                setFlags();
             } catch (error) {
                 console.error('Ошибка при обновлении:', error);
             } finally {
-                setIsUpdating(false);
+                dispatch(updateTodo(id, newTitle))
             }
         }
     };
-
-    return { 
-        isUpdating, 
-        onUpdate 
-    };
-};
